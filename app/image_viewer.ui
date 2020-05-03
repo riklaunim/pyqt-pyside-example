@@ -26,6 +26,12 @@
       </item>
       <item>
        <widget class="QLabel" name="currentFile">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
          <string>No file selected</string>
         </property>

@@ -34,6 +34,11 @@ class Ui_ImageViewerWindow(object):
 
         self.currentFile = QLabel(self.centralwidget)
         self.currentFile.setObjectName(u"currentFile")
+        sizePolicy = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.currentFile.sizePolicy().hasHeightForWidth())
+        self.currentFile.setSizePolicy(sizePolicy)
 
         self.horizontalLayout.addWidget(self.currentFile)
 
@@ -42,11 +47,11 @@ class Ui_ImageViewerWindow(object):
 
         self.imageLabel = QLabel(self.centralwidget)
         self.imageLabel.setObjectName(u"imageLabel")
-        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.imageLabel.sizePolicy().hasHeightForWidth())
-        self.imageLabel.setSizePolicy(sizePolicy)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.imageLabel.sizePolicy().hasHeightForWidth())
+        self.imageLabel.setSizePolicy(sizePolicy1)
 
         self.verticalLayout.addWidget(self.imageLabel)
 
