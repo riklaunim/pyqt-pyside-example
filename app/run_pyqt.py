@@ -13,15 +13,15 @@ class ImageViewer(QtWidgets.QMainWindow, image_viewer_pyqt.Ui_ImageViewerWindow)
         self.openImageButton.clicked.connect(self.open_image_action)
 
     def open_image_action(self):
-        prompt = ConfirmationPrompt(self)
-        if prompt.confirm():
-            picker = self._get_image_picker()
-            picker.exec_()
+        prompt = ConfirmationPrompt(self).get_widget()
+        prompt.accepted.connect(self.show_image_picker)
+        prompt.open()
+        return prompt
 
-    def _get_image_picker(self):
-        picker = QtWidgets.QFileDialog(self)
-        picker.setMimeTypeFilters(['image/jpeg', 'image/png', 'image/bmp', 'image/tiff', 'image/gif', 'image/webp'])
+    def show_image_picker(self):
+        picker = ImagePicker(self).get_widget()
         picker.fileSelected.connect(self.image_file_selected)
+        picker.show()
         return picker
 
     def image_file_selected(self, file):
@@ -31,25 +31,27 @@ class ImageViewer(QtWidgets.QMainWindow, image_viewer_pyqt.Ui_ImageViewerWindow)
 
 
 class ConfirmationPrompt:
-    CONFIRM = 'Yes'
-    REJECT = 'No'
-
     def __init__(self, ui):
         self.ui = ui
 
-    def confirm(self):
-        confirm_prompt = self._build_confirmation_message_box()
-        confirm_prompt.exec_()
-        return confirm_prompt.clickedButton().text() == self.CONFIRM
+    def get_widget(self):
+        widget = QtWidgets.QMessageBox(self.ui)
+        widget.setText('Do you really want to open an image?')
+        widget.setIcon(widget.Question)
+        widget.addButton('Yes', widget.AcceptRole)
+        widget.addButton('No', widget.RejectRole)
+        widget.setDetailedText('This is just a show-off for OS differences in prompt windows')
+        return widget
 
-    def _build_confirmation_message_box(self):
-        box = QtWidgets.QMessageBox(self.ui)
-        box.setText('Do yu really want to open an image?')
-        box.setIcon(box.Question)
-        box.addButton(self.CONFIRM, box.AcceptRole)
-        box.addButton(self.REJECT, box.RejectRole)
-        box.setDetailedText('This is just a show-off for OS differences in prompt windows')
-        return box
+
+class ImagePicker:
+    def __init__(self, ui):
+        self.ui = ui
+
+    def get_widget(self):
+        picker = QtWidgets.QFileDialog(self.ui)
+        picker.setMimeTypeFilters(['image/jpeg', 'image/png', 'image/bmp', 'image/tiff', 'image/gif', 'image/webp'])
+        return picker
 
 
 def main():
