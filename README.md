@@ -2,6 +2,8 @@
 This is a basic PyQt and PySide2 example application showcasing how to work with UI files from QtDesigner
 as well as signal and slots and basic widgets.
 
+**Tutorial**: https://rk.edu.pl/en/quick-start-gui-applications-pyqt5-and-pyside2/
+
 
 ![Application](qt_result.jpg "Application")
 
